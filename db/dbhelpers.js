@@ -22,6 +22,13 @@ const reviewsSchema = new mongoose.Schema({
   abuseReported: Boolean
 })
 
+const averageReviewsSchema = new mongoose.Schema({
+  productId: String,
+  totalReviews: Number,
+  averageReviews: Number
+})
+
+const averageReviews = mongoose.model('AverageReviews', averageReviewsSchema);
 const Review = mongoose.model('Review', reviewsSchema);
 
 let seed = () => {
@@ -42,6 +49,24 @@ let seed = () => {
         console.log('error saving to the database')
       }
     })
+  }
+
+  for (let i =1; i <= 100; i++) {
+    let newAverageReview = new averageReviews({
+      productId: i,
+      totalReviews: faker.datatype.number(3000),
+      averageReviews: faker.random.number({
+        'min': 1,
+        'max': 5,
+        precision: .1
+    }),
+    })
+    newAverageReview.save(function(err, success){
+      if (err) {
+        console.log('error saving to the database')
+      }
+    })
+
   }
 }
 
