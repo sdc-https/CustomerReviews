@@ -70,6 +70,17 @@ let seed = () => {
   }
 }
 
+let getReviews = (product) => {
+  console.log('get reviews is running');
+  console.log(product);
+  return Review.find({productId : product})
+}
+
+let getAverageReviews = (product) => {
+  return averageReviews.findOne({productId : product})
+}
+
 seed();
 
-
+module.exports.getReviews = getReviews;
+module.exports.getAverageReviews = getAverageReviews;
