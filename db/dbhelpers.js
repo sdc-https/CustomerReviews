@@ -40,7 +40,7 @@ let seed = () => {
       title: faker.lorem.words(),
       location: faker.address.country(),
       reviewDate: faker.date.past(),
-      reviewBody: faker.lorem.sentences(),
+      reviewBody: faker.lorem.paragraph(),
       helpfulCount: faker.datatype.number(2000),
       abuseReported: faker.random.boolean()
     })
