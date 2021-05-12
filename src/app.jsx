@@ -23,6 +23,7 @@ class App extends React.Component {
   componentDidMount() {
     $.ajax({
       method: 'GET',
+      //currently usint a static url here, need to refactor to pull based on the url inputed...
       url: 'http://localhost:9001/reviews/45',
       success: (data, res) => {
         this.setReviewsFeed(data);

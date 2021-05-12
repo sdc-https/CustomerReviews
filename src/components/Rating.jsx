@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 
 const Rating = (props) => (
   <div>
-   Rating will go here
   </div>
 );
 
