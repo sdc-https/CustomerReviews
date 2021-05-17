@@ -23,3 +23,8 @@ app.get('/averagereview/:productid', function(req, res) {
       res.send(score);
     })
 })
+
+app.get('/:productId', function(req, res) {
+  //res.send(req.params.productId);
+  res.sendFile(path.join(__dirname, '/../public/Index.html'))
+})

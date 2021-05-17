@@ -7,7 +7,7 @@ import $ from 'jquery';
 class App extends React.Component {
   constructor() {
     super();
-    this.state = {reviews: [], score: 0};
+    this.state = {productId: window.location.pathname.split("")[1], reviews: [], score: 0};
     this.setReviewsFeed = this.setReviewsFeed.bind(this);
   }
 
@@ -21,10 +21,13 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    let product = new URL(window.location);
+    console.log('product', product);
+    console.log('state', this.state);
     $.ajax({
       method: 'GET',
       //currently usint a static url here, need to refactor to pull based on the url inputed...
-      url: 'http://localhost:9001/reviews/45',
+      url: 'http://localhost:9001/reviews/' + this.state.productId,
       success: (data, res) => {
         this.setReviewsFeed(data);
       }
