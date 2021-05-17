@@ -4,7 +4,7 @@ module.exports = {
   entry: './src/app.jsx',
   mode: 'development',
   output: {
-    filename: 'bundle.js',
+    filename: 'customerreviews.js',
     path: path.join(__dirname, 'public')
   },
   module: {

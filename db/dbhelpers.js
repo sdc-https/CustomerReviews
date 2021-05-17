@@ -80,7 +80,7 @@ let getAverageReviews = (product) => {
   return averageReviews.findOne({productId : product})
 }
 
-seed();
+
 
 module.exports.getReviews = getReviews;
 module.exports.getAverageReviews = getAverageReviews;

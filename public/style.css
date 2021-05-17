@@ -74,3 +74,7 @@ cursor: pointer;
   font-size: 14px!important;
     line-height: 20px!important;
 }
+
+.rating-container {
+  width: 300px;
+}
