@@ -12,18 +12,13 @@ class App extends React.Component {
   }
 
   setReviewsFeed (data) {
-    console.log(data);
     this.setState({
       reviews: data
     })
-    console.log(this.state);
-
   }
 
   componentDidMount() {
     let product = new URL(window.location);
-    console.log('product', product);
-    console.log('state', this.state);
     $.ajax({
       method: 'GET',
       //currently usint a static url here, need to refactor to pull based on the url inputed...
