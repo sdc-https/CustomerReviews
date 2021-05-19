@@ -6,7 +6,12 @@ const db = require('../db/dbhelpers')
 const cors = require('cors')
 
 app.use(express.static(path.join(__dirname, "..", "public")))
-app.use(cors())
+app.use(cors());
+// app.use( (req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+//   next();
+// });
 
 app.listen(port, ()=>{
   console.log(`Server now listening at http://localhost:${port}`)
@@ -26,7 +31,6 @@ app.get('/averagereview/:productid', function(req, res) {
     })
 })
 
-app.get('/:productId', function(req, res) {
-  //res.send(req.params.productId);
+app.get('/:productId', function(req, res) { //refactor to include /dp/:productid
   res.sendFile(path.join(__dirname, '/../public/Index.html'))
 })
