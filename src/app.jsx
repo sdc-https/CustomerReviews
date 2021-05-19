@@ -21,7 +21,6 @@ class App extends React.Component {
     let product = new URL(window.location);
     $.ajax({
       method: 'GET',
-      //currently usint a static url here, need to refactor to pull based on the url inputed...
       url: 'http://localhost:9001/reviews/' + this.state.productId,
       success: (data, res) => {
         this.setReviewsFeed(data);
