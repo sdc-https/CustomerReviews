@@ -3,6 +3,7 @@ const app = express()
 const port = 9001
 const path = require('path')
 const db = require('../db/dbhelpers')
+var cors = require('cors')
 
 app.use(express.static(path.join(__dirname, "..", "public")))
 app.use(cors())
