@@ -5,7 +5,7 @@ import moment from 'moment'
 const Reviews = (props) => (
   <div>
     <ul>
-      {props.reviews.map((review, i) => (
+      {props.reviews.slice(0,10).map((review, i) => (
         <div className = "review-container" key = {i}>
           <div className = "review-username">
             <img className = "review-username_image" src="user_image.png" ></img> <div className = "review-username_text"> {review.userName} </div>
