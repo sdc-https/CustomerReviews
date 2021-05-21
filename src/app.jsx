@@ -7,7 +7,7 @@ import $ from 'jquery';
 class App extends React.Component {
   constructor() {
     super();
-    this.state = {productId: window.location.pathname.split("")[1] || "1", reviews: [], score: 0};
+    this.state = {productId: window.location.pathname.split("/")[1] || "1", reviews: [], score: 0};
     this.setReviewsFeed = this.setReviewsFeed.bind(this);
   }
 
