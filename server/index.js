@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 9001
+const port = 3004
 const path = require('path')
 const db = require('../db/dbhelpers')
 const cors = require('cors')

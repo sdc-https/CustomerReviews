@@ -21,7 +21,7 @@ class App extends React.Component {
     let product = new URL(window.location);
     $.ajax({
       method: 'GET',
-      url: 'http://localhost:9001/reviews/' + this.state.productId,
+      url: 'http://localhost:3004/reviews/' + this.state.productId,
       success: (data, res) => {
         this.setReviewsFeed(data);
       }
