@@ -16,7 +16,7 @@ const Reviews = (props) => (
           <div className = "location-date">Reviewed in {review.location} on {moment(review.reviewDate, 'YYYY-MM-DDThh:mm:ss.sss').format('MMMM Do, YYYY')}</div>
           <div className = "review-body">{review.reviewBody}</div>
           <div className = "helpful-count"> {review.helpfulCount} people found this helpful</div>
-          <div> <button className = "helpful-button">Helpful</button>  <span className = "abuse-text">|  Report Abuse</span> </div>
+          <div> <button  data-testid = "helpful-button" className = "helpful-button">Helpful</button>  <span className = "abuse-text">|  Report Abuse</span> </div>
         </div>
       ))}
     </ul>
