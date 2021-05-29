@@ -2,16 +2,12 @@ const express = require('express')
 const app = express()
 const port = 3004
 const path = require('path')
-const db = require('../db/dbhelpers')
+const db = require('../db/seed.js')
 const cors = require('cors')
 
 app.use(express.static(path.join(__dirname, "..", "public")))
 app.use(cors());
-// app.use( (req, res, next) => {
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-//   res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
-//   next();
-// });
+
 
 app.listen(port, ()=>{
   console.log(`Server now listening at http://localhost:${port}`)

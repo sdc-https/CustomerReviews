@@ -8,7 +8,7 @@
     "build": "webpack",
     "start": "nodemon server/index.js",
     "watch": "webpack --watch",
-    "seed": "node db/dbhelpers.js"
+    "seed": "node db/seed.js"
   },
   "repository": {
     "type": "git",
