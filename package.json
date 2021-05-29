@@ -6,9 +6,8 @@
   "scripts": {
     "test": "jest",
     "build": "webpack",
-    "start": "webpack serve",
+    "start": "nodemon server/index.js",
     "watch": "webpack --watch",
-    "serve": "nodemon server/index.js",
     "seed": "node db/dbhelpers.js"
   },
   "repository": {
