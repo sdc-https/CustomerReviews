@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const faker = require('faker');
 
-mongoose.connect('mongodb://localhost/CustomerReviews', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb://mongo:27017/CustomerReviews', {useNewUrlParser: true, useUnifiedTopology: true});
 
 const db = mongoose.connection;
 

@@ -73,9 +73,7 @@ let getAverageReviews = (product) => {
 }
 
 
-
 seed();
-
 
 module.exports.getReviews = getReviews;
 module.exports.getAverageReviews = getAverageReviews;
