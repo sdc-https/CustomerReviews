@@ -10,7 +10,7 @@ app.use(cors());
 
 
 app.listen(port, ()=>{
-  console.log(`Server now listening at http://localhost:${port}`)
+  console.log(`Server now listening at http://52.55.99.35:${port}`)
 })
 
 app.get('/reviews/:productid', function(req, res) {
@@ -27,7 +27,6 @@ app.get('/averagereview/:productid', function(req, res) {
     })
 })
 
-app.get('/dp/:productid', function(req, res) { //refactor to include /dp/:productid
-  console.log(req)
-  res.sendFile(path.join(__dirname, '/../public/Index.html'))
+app.get('/dp/:productid', function(req, res) {
+  res.sendFile(path.join(__dirname, '/../public/index.html'))
 })
