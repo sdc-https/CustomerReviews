@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Reviews from './components/Reviews.jsx';
-import Rating from './components/Rating.jsx';
 import $ from 'jquery';
 
 class App extends React.Component {
