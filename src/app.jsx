@@ -16,6 +16,7 @@ class App extends React.Component {
     })
   }
 
+
   componentDidMount() {
     let product = new URL(window.location);
     $.ajax({
