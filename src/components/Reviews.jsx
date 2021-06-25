@@ -8,7 +8,7 @@ const Reviews = (props) => (
       {props.reviews.slice(0,10).map((review, i) => (
         <div className = "review-container" key = {i}>
           <div className = "review-username">
-            <img className = "review-username_image" src="https://amazoncustomerreviews.s3.us-east-2.amazonaws.com/user_image.png" ></img> <div className = "review-username_text"> {review.userName} </div>
+            <img className = "review-username_image" src="http://localhost:3004/user_image.png" ></img> <div className = "review-username_text"> {review.userName} </div>
           </div>
           <div className = "review-title">
             {review.rating} out of 5 {review.title}

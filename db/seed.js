@@ -72,9 +72,27 @@ let getAverageReviews = (product) => {
   return averageReviews.findOne({productId : product})
 }
 
-
+let postReviews = (data) => {
+  let newReview = new Review({
+    productId: faker.datatype.number(100),
+    userName: faker.internet.userName(),
+    rating: faker.datatype.number(5),
+    title: faker.lorem.words(),
+    location: faker.address.country(),
+    reviewDate: faker.date.past(),
+    reviewBody: faker.lorem.paragraph(),
+    helpfulCount: faker.datatype.number(2000),
+    abuseReported: faker.datatype.boolean()
+  })
+  newReview.save(function(err, success) {
+    if (err) {
+      console.log('error saving to the database')
+    }
+  })
+}
 seed();
 
+module.exports.postReviews = postReviews;
 module.exports.getReviews = getReviews;
 module.exports.getAverageReviews = getAverageReviews;
 module.exports.seed = seed;
