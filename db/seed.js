@@ -87,10 +87,12 @@ let postReviews = (data) => {
   newReview.save(function(err, success) {
     if (err) {
       console.log('error saving to the database')
+    } else {
+      console.log('Saved new review to database', success);
     }
   })
 }
-seed();
+// seed();
 
 module.exports.postReviews = postReviews;
 module.exports.getReviews = getReviews;
