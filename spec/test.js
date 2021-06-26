@@ -1,36 +1,62 @@
 import 'babel-polyfill';
 import axios from 'axios';
 
-describe('CRUD API Route Testing', () => {
+beforeAll(async() => {
+  jest.setTimeout(100000);
+})
 
-  test('GET Request Working', async () => {
-    return axios.get('http://localhost:3004/reviews/5')
+describe('GET Route Testing', () => {
+
+  it('GET Request Working', async () => {
+    await axios.get('http://localhost:3004/reviews/5')
       .then((response) => {
-        expect(parseInt(response.data[0].productId)).toBe(5);
+        expect(response.status).toBe(200);
       })
       .catch((err) => {
         console.log('Error in GET TEST', err)
       })
-  })
+  });
+});
 
-  test('POST Request Working', () => {
-    return axios.post('http://localhost:3004/reviews', {
+describe('POST Route Testing', () => {
+
+    it('POST Request Working', async () => {
+    await axios.post('http://localhost:3004/reviews', {
       productId: 101
      })
       .then((response) => {
-        console.log(response.data.length)
-        expect(parseInt(response.data[0].productId)).toBe(5);
+        expect(response.status).toBe(200);
       })
       .catch((err) => {
         console.log('Error in POST TEST', err)
       })
-  })
+  });
+});
 
-  test ('PUT Request Working', async () => {
-    console.log('PUT TEST');
-  })
+describe('PUT Route Testing', () => {
 
-  test ('DELETE Request Working', async () => {
-    console.log('DELETE TEST');
-  })
+  it ('PUT Request Working', async () => {
+     await axios.put('http://localhost:3004/reviews/5', {
+      reviewBody: 'New Review!'
+    })
+    .then((response) => {
+      expect(response.status).toBe(200);
+    })
+    .catch((err) => {
+      console.log('Error in PUT TEST', err)
+    })
+  });
+});
+
+describe('DELETE Route Testing', () => {
+
+  it ('DELETE Request Working', async () => {
+    await axios.delete('http://localhost:3004/reviews/97')
+    .then((response) => {
+      expect(response.status).toBe(200);
+    })
+    .catch((err) => {
+      console.log('Error in DELETE TEST', err)
+    })
+  });
 });
