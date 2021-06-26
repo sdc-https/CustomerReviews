@@ -18,10 +18,10 @@
 
 > CRUD API Routes
 
-GET /reviews
-POST /reviews
-PUT /reviews/:productId
-DELETE /reviews/:productId
+- GET /reviews
+- POST /reviews
+- PUT /reviews/:productId
+- DELETE /reviews/:productId
 
 
 ## Requirements
