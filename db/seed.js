@@ -87,11 +87,36 @@ let postReviews = (data) => {
   newReview.save(function(err, success) {
     if (err) {
       console.log('error saving to the database')
+    } else {
+      console.log('Saved new review to database', success);
     }
   })
 }
-seed();
 
+let putReviews = (productId, data) => {
+  console.log('Updating database', data);
+  return Review.findOneAndUpdate({productId}, data, {upsert: true})
+  .then((response) => {
+    console.log('Update Response', response)
+  })
+  .catch((err) => {
+    console.log('Error in Update Response', err)
+  })
+}
+
+let deleteReview = (productId) => {
+  return Review.deleteOne({productId})
+  .then((response) => {
+    console.log('Delete Response', response)
+  })
+  .catch((err) => {
+    console.log('Error In Delete Response', err)
+  })
+}
+
+// seed();
+module.exports.deleteReview = deleteReview;
+module.exports.putReviews = putReviews;
 module.exports.postReviews = postReviews;
 module.exports.getReviews = getReviews;
 module.exports.getAverageReviews = getAverageReviews;
