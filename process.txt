@@ -1,0 +1,1 @@
+1) add CRUD to existing API 2) seed two new databases with 10M records 3) query those two new databases to confirm CRUD operations will run in under 50ms FROM CLI 4) pick a database winner 5) update service API to accommodate database winner 6) run stress tests
