@@ -39,7 +39,6 @@ let count;
 
 }
 
-// seedAvgReviews();
 
 let seedReviews = async () => {
 
@@ -85,5 +84,5 @@ let seedReviews = async () => {
   }
 }
 
+require('make-runnable');
 
-// seedReviews();

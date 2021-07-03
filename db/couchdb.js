@@ -2,7 +2,7 @@ const axios = require('axios');
 const faker = require('faker');
 const config = require('../couchconfig.js');
 const averageReviewsUrl = `http://${config.username}:${config.password}@localhost:5984/averagereviews/_bulk_docs`;
-const reviewsUrl = `http://localhost:5984/reviews`;
+const reviewsUrl = `http://${config.username}:${config.password}@localhost:5984/reviews/_bulk_docs`
 
 const seedAverageReviews = async () => {
   let productId = 0;
@@ -34,4 +34,37 @@ const seedAverageReviews = async () => {
 
 }
 
-seedAverageReviews();
+const seedReviews = async () => {
+  let productNum = 1;
+  for (let j = 1; j <= 10000; j++) {
+    let records = [];
+    for (let k = 1; k <= 1000; k++) {
+      let numberOfReviews = Math.floor(Math.random() * 10 + 1)
+      for (let i = 0; i < numberOfReviews; i++) {
+        let newReview = {
+           productId : productNum,
+           userName : faker.internet.userName(),
+           rating : faker.datatype.number(5),
+           title : faker.lorem.words(),
+           location : faker.address.country(),
+           reviewDate : faker.date.past(),
+           reviewBody : faker.lorem.paragraph(),
+           helpfulCount : faker.datatype.number(2000),
+           abuseReported : faker.datatype.boolean()
+        }
+        records.push(newReview);
+    }
+    productNum++;
+  }
+  await axios.post(`${reviewsUrl}`, {docs: records})
+  .then(() => {
+    console.log('SUCCSEFULLY ADDED ' + productNum - 1 + ' RECORDS TO REVIEW DATABASE');
+  })
+  .catch((error) => {
+    console.log('ERROR LOADING REVIEWS DATABASE', error);
+  })
+    }
+  }
+
+  require('make-runnable');
+
