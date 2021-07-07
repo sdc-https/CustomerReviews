@@ -11,7 +11,7 @@
     "seed-avgpostgres": "node db/postgresdb.js seedAvgReviews",
     "seed-reviewspostgres": "node db/postgresdb.js seedReviews",
     "seed-avgcouchdb": "node db/couchdb.js seedAverageReviews",
-    "seed-reviewscouchdb": "node db/couchdb.js  seedReviews"
+    "seed-reviewscouchdb": "node db/couchdb.js seedReviews"
   },
   "repository": {
     "type": "git",
