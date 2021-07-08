@@ -17,7 +17,7 @@ const seedAverageReviews = async () => {
         precision: .1
       })
       let avgReview = {
-        productId : productId,
+        _id : productId.toString(),
         totalReviews: totalReviews,
         averageReviews: averageReviews
       }
@@ -39,6 +39,11 @@ const seedReviews = async () => {
   for (let j = 1; j <= 10000; j++) {
     let records = [];
     for (let k = 1; k <= 1000; k++) {
+      let newProduct = {
+        _id : productNum.toString(),
+        reviews: [
+        ]
+      }
       let numberOfReviews = Math.floor(Math.random() * 10 + 1)
       for (let i = 0; i < numberOfReviews; i++) {
         let newReview = {
@@ -52,19 +57,23 @@ const seedReviews = async () => {
            helpfulCount : faker.datatype.number(2000),
            abuseReported : faker.datatype.boolean()
         }
-        records.push(newReview);
+        newProduct.reviews.push(newReview);
     }
+    records.push(newProduct);
     productNum++;
   }
   await axios.post(`${reviewsUrl}`, {docs: records})
   .then(() => {
-    console.log('SUCCSEFULLY ADDED ' + productNum - 1 + ' RECORDS TO REVIEW DATABASE');
+    console.log('SUCCSEFULLY ADDED ' + (productNum - 1) + ' RECORDS TO REVIEW DATABASE');
   })
   .catch((error) => {
     console.log('ERROR LOADING REVIEWS DATABASE', error);
   })
     }
   }
+  module.exports.seedAverageReviews = seedAverageReviews;
+  module.exports.seedReviews = seedReviews;
 
   require('make-runnable');
+
 
