@@ -1,88 +1,100 @@
-const mongoose = require('mongoose');
+const env = require('../.env')
+const postgres = require('postgres');
+const postgresip = env.POSTGRES_IP || 'localhost';
+const sql = postgres(`postgresql://${postgresip}:5432/reviews`);
 const faker = require('faker');
 
-mongoose.connect('mongodb://localhost:27017/CustomerReviews', {useNewUrlParser: true, useUnifiedTopology: true});
 
-const db = mongoose.connection;
+if(sql) {
+  console.log('CONNECTED TO POSTGRES DATABASE')
+} else {
+  console.log('ERROR CONNECTED TO POSTGRES DATABASE');
+}
 
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open' , function() {
-  console.log('we are connected!')
-});
+//Get All Reviews for Given Product ID
+let getReviews = async (productId) => {
+  console.log('get reviews is running');
+  console.log(productId);
+  return await sql `
+  SELECT * FROM reviews WHERE productid = ${productId};
+  `
+  .then((reviews) => {
+    console.log(reviews);
+    return reviews;
+  })
+  .catch((error) => {
+    console.log(`ERROR GETTING REVIEWS FOR PRODUCT ID ${productId}`);
+  })
+}
 
-// const reviewsSchema = new mongoose.Schema({
-//   productId: String,
-//   userName: String,
-//   rating: Number,
-//   title: String,
-//   location: String,
-//   reviewDate: Date,
-//   reviewBody: String,
-//   helpfulCount: Number,
-//   abuseReported: Boolean
-// })
+//Get Average Reviews for Given Product ID
+let getAverageReviews = async (productId) => {
+  console.log('get average reviews is running');
+  console.log(productId);
+  return await sql `
+  SELECT * FROM averagereviews WHERE productid = ${productId};
+  `
+  .then((reviews) => {
+    console.log(reviews);
+    return reviews;
+  })
+  .catch((error) => {
+    console.log(`ERROR GETTING AVERAGE REVIEWS FOR PRODUCT ID ${productId}`);
+  })
+}
 
-// const averageReviewsSchema = new mongoose.Schema({
-//   productId: String,
-//   totalReviews: Number,
-//   averageReviews: Number
-// })
+//Post New Review for Given Product ID
+let postReviews = async () => {
 
-// const averageReviews = mongoose.model('AverageReviews', averageReviewsSchema);
-// const Review = mongoose.model('Review', reviewsSchema);
-
-// let seed = () => {
-//   for (let i = 0; i <= 3000; i++) {
-//     let newReview = new Review({
-//       productId: faker.datatype.number(100),
-//       userName: faker.internet.userName(),
-//       rating: faker.datatype.number(5),
-//       title: faker.lorem.words(),
-//       location: faker.address.country(),
-//       reviewDate: faker.date.past(),
-//       reviewBody: faker.lorem.paragraph(),
-//       helpfulCount: faker.datatype.number(2000),
-//       abuseReported: faker.random.boolean()
-//     })
-//     newReview.save(function(err, success) {
-//       if (err) {
-//         console.log('error saving to the database')
-//       }
-//     })
-//   }
-
-//   for (let i =1; i <= 100; i++) {
-//     let newAverageReview = new averageReviews({
-//       productId: i,
-//       totalReviews: faker.datatype.number(3000),
-//       averageReviews: faker.random.number({
-//         'min': 1,
-//         'max': 5,
-//         precision: .1
-//     }),
-//     })
-//     newAverageReview.save(function(err, success){
-//       if (err) {
-//         console.log('error saving to the database')
-//       }
-//     })
-
-//   }
-// }
-
-// let getReviews = (product) => {
-//   console.log('get reviews is running');
-//   console.log(product);
-//   return Review.find({productId : product})
-// }
-
-// let getAverageReviews = (product) => {
-//   return averageReviews.findOne({productId : product})
-// }
-
-// // seed();
+  let productId = Math.floor(Math.random() * (100000000 - 10000001) + 10000001);
+  let userName = faker.internet.userName();
+  let rating = faker.datatype.number(5);
+  let title = faker.lorem.words();
+  let location = faker.address.country();
+  let reviewDate = faker.date.past();
+  let reviewBody = faker.lorem.paragraph();
+  let helpfulCount = faker.datatype.number(2000);
+  let abuseReported = faker.datatype.boolean();
 
 
-// module.exports.getReviews = getReviews;
-// module.exports.getAverageReviews = getAverageReviews;
-// module.exports.seed = seed;
+  await sql`
+      INSERT INTO reviews VALUES (
+        ${productId}, ${userName}, ${rating}, ${title}, ${location}, ${reviewDate}, ${reviewBody}, ${helpfulCount}, ${abuseReported}
+        )
+      `
+}
+
+//Update Review for Given Product ID
+let putReviews = (productId, data) => {
+  console.log('Updating database', data);
+  return Review.findOneAndUpdate({productId}, data, {upsert: true})
+  .then((response) => {
+    console.log('Update Response', response)
+  })
+  .catch((err) => {
+    console.log('Error in Update Response', err)
+  })
+}
+
+//Delete Reviews for Given Product ID
+let deleteReview = async (productId) => {
+  console.log('delete review is running');
+  console.log(productId);
+  return await sql `
+  DELETE FROM reviews WHERE productid = ${productId};
+  `
+  .then((reviews) => {
+    console.log(reviews);
+    return reviews;
+  })
+  .catch((error) => {
+    console.log(`ERROR DELETING REVIEWS FOR PRODUCT ID ${productId}`);
+  })
+}
+
+module.exports.deleteReview = deleteReview;
+module.exports.putReviews = putReviews;
+module.exports.postReviews = postReviews;
+module.exports.getReviews = getReviews;
+module.exports.getAverageReviews = getAverageReviews;
+module.exports.sql = sql;

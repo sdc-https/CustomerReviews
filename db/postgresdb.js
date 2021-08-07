@@ -1,5 +1,6 @@
 const postgres = require('postgres');
-const sql = postgres('postgresql://localhost:5432/reviews');
+const postgresip = 'localhost';
+const sql = postgres(`postgresql://${postgresip}:5432/reviews`);
 const faker = require('faker');
 
 

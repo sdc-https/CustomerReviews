@@ -36,15 +36,11 @@ const seedAverageReviews = async () => {
 
 const seedReviews = async () => {
   let productNum = 1;
+  let id = 0;
   for (let j = 1; j <= 10000; j++) {
     let records = [];
     for (let k = 1; k <= 1000; k++) {
-      let newProduct = {
-        _id : productNum.toString(),
-        reviews: [
-        ]
-      }
-      let numberOfReviews = Math.floor(Math.random() * 10 + 1)
+      let numberOfReviews = Math.floor(Math.random() * 7 + 1)
       for (let i = 0; i < numberOfReviews; i++) {
         let newReview = {
            productId : productNum,
@@ -57,9 +53,8 @@ const seedReviews = async () => {
            helpfulCount : faker.datatype.number(2000),
            abuseReported : faker.datatype.boolean()
         }
-        newProduct.reviews.push(newReview);
+        records.push(newReview);
     }
-    records.push(newProduct);
     productNum++;
   }
   await axios.post(`${reviewsUrl}`, {docs: records})

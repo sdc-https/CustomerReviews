@@ -6,13 +6,18 @@ import $ from 'jquery';
 class App extends React.Component {
   constructor() {
     super();
-    this.state = {productId: window.location.pathname.split("/")[2] || "1", reviews: [], score: 0};
+    this.state = {
+      productId: window.location.pathname.split("/")[2] || "1",
+      reviews: [],
+      score: 0
+    };
     this.setReviewsFeed = this.setReviewsFeed.bind(this);
+    this.proxyip = '3.131.237.78';
   }
 
   setReviewsFeed (data) {
     this.setState({
-      reviews: data
+      reviews: data,
     })
   }
 
@@ -21,8 +26,9 @@ class App extends React.Component {
     let product = new URL(window.location);
     $.ajax({
       method: 'GET',
-      url: 'http://localhost:3004/reviews/' + this.state.productId,
+      url: `http://${this.proxyip}/reviews/` + this.state.productId,
       success: (data, res) => {
+        console.log(`REVIEWS ON COMPONENT DID MOUNT, ${data} `)
         this.setReviewsFeed(data);
       }
     })
@@ -31,12 +37,11 @@ class App extends React.Component {
   render() {
     return (
       <div className = "Customer-Reviews">
-        {/* <Rating className = "rating-container"/>  */}
         <Reviews className = "reviews-container" reviews={this.state.reviews}/>
       </div>
     )
   }
 }
 
-// ReactDOM.render(<App />, document.getElementById("reviews"))
+
 export default App;
