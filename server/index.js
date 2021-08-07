@@ -1,20 +1,25 @@
+require ('newrelic')
 const express = require('express')
 const app = express()
 const port = 3004
 const path = require('path')
-const db = require('../db/seed.js')
+const db = require('../db/dbhelpers.js')
 const cors = require('cors')
 const bodyParser = require ('body-parser');
 const jsonParser = bodyParser.json();
+const morgan = require('morgan');
+const env = require('../.env');
 
+const reviewsip = `${env.REVIEWS_IP}`;
 
 
 app.use(express.static(path.join(__dirname, "..", "public")))
 app.use(cors());
+app.use(morgan('tiny'));
 
 
 app.listen(port, ()=>{
-  console.log(`Server now listening at http://localhost:${port}`)
+  console.log(`Server now listening at http://${reviewsip}:${port}`)
 })
 
 app.get('/reviews/:productid', function(req, res) {
@@ -44,7 +49,6 @@ app.post('/reviews', function(req, res) {
 app.put('/reviews/:productid', jsonParser, function (req, res) {
   let data = req.body;
   let productId = req.params.productid;
-  console.log(productId);
   db.putReviews(productId, data);
   res.end();
 })
