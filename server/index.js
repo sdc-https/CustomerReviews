@@ -8,8 +8,9 @@ const cors = require('cors')
 const bodyParser = require ('body-parser');
 const jsonParser = bodyParser.json();
 const morgan = require('morgan');
-const reviewsip = '13.59.62.28';
+const env = require('../.env');
 
+const reviewsip = `${env.REVIEWS_IP}`;
 
 
 app.use(express.static(path.join(__dirname, "..", "public")))

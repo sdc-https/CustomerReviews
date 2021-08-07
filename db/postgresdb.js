@@ -1,6 +1,6 @@
 const postgres = require('postgres');
-const postgresip = 'localhost';
-const sql = postgres(`postgresql://${postgresip}:5432/reviews`);
+const env = require('../.env');
+const sql = postgres(`postgresql://${env.POSTGRES_IP}:5432/reviews`);
 const faker = require('faker');
 
 

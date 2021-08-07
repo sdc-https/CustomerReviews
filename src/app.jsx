@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Reviews from './components/Reviews.jsx';
 import $ from 'jquery';
+import env from '../.env';
 
 class App extends React.Component {
   constructor() {
@@ -12,7 +13,7 @@ class App extends React.Component {
       score: 0
     };
     this.setReviewsFeed = this.setReviewsFeed.bind(this);
-    this.proxyip = '3.131.237.78';
+    this.proxyip = `${env.PROXY_IP}`;
   }
 
   setReviewsFeed (data) {
