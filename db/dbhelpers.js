@@ -1,7 +1,6 @@
-const env = require('../.env')
 const postgres = require('postgres');
-const postgresip = env.POSTGRES_IP || 'localhost';
-const sql = postgres(`postgresql://${postgresip}:5432/reviews`);
+const env = require('../config.env')
+const sql = postgres(`postgresql://jordanace:${env.PostgresPW}@3.139.18.46:5432/postgres`);
 const faker = require('faker');
 
 
@@ -32,7 +31,7 @@ let getAverageReviews = async (productId) => {
   console.log('get average reviews is running');
   console.log(productId);
   return await sql `
-  SELECT * FROM averagereviews WHERE productid = ${productId};
+  SELECT * FROM averagereview WHERE productid = ${productId};
   `
   .then((reviews) => {
     console.log(reviews);

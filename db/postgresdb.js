@@ -1,13 +1,13 @@
 const postgres = require('postgres');
 const env = require('../.env');
-const sql = postgres(`postgresql://${env.POSTGRES_IP}:5432/reviews`);
+const sql = postgres(`postgresql://localhost:5432/reviews`);
 const faker = require('faker');
 
 
 let count;
 
  let seedAvgReviews = async () => {
-
+  console.log('ARE WE HERE');
   await sql`
   CREATE TABLE IF NOT EXISTS averagereview (
     productId INT,
@@ -40,11 +40,24 @@ let count;
 
 }
 
+let seedNewReviews = async (records) => {
+  for (let i = 0; i <= records.length; i++) {
+    await sql`
+    INSERT INTO test VALUES (
+      ${records[i].productId}, ${records[i].userName}, ${records[i].rating}, ${records[i].title}, ${records[i].location}, ${records[i].reviewDate}, ${records[i].reviewBody}, ${records[i].helpfulCount}, ${records[i].abuseReported}
+      )
+    `
+    .catch((err) => {
+      console.log('Error loading database', err);
+    })
+  }
+
+}
 
 let seedReviews = async () => {
 
   await sql`
-  CREATE TABLE IF NOT EXISTS reviews (
+  CREATE TABLE IF NOT EXISTS test (
     productId INT,
     USERNAME varchar(255),
     RATING INT,
@@ -59,31 +72,32 @@ let seedReviews = async () => {
   .catch((error) => {
     console.log('ERROR SAVING TO REVIEWS DATABASE', error)
   })
-
-  for (let j = 1; j <= 10000000; j++) {
-    let numberOfReviews = Math.floor(Math.random() * 10 + 1)
-    for (let i = 0; i < numberOfReviews; i++) {
-      let productId = j;
-      let userName = faker.internet.userName();
-      let rating = faker.datatype.number(5);
-      let title = faker.lorem.words();
-      let location = faker.address.country();
-      let reviewDate = faker.date.past();
-      let reviewBody = faker.lorem.paragraph();
-      let helpfulCount = faker.datatype.number(2000);
-      let abuseReported = faker.datatype.boolean();
-
-      await sql`
-      INSERT INTO reviews VALUES (
-        ${productId}, ${userName}, ${rating}, ${title}, ${location}, ${reviewDate}, ${reviewBody}, ${helpfulCount}, ${abuseReported}
-        )
-      `
-      .catch((error) => {
-        console.log('ERROR ADDING TO DATABASE', error)
-      })
+  let productNum = 1;
+  for (let j = 1; j <= 10; j++) {
+    let records = [];
+    for (let k = 1; k <= 10; k++) {
+      let numberOfReviews = Math.floor(Math.random() * 5 + 1)
+      for (let i = 0; i <= numberOfReviews; i++) {
+        let newReview = {
+           productId : productNum,
+           userName : faker.internet.userName(),
+           rating : faker.datatype.number(5),
+           title : faker.lorem.words(),
+           location : faker.address.country(),
+           reviewDate : faker.date.past(),
+           reviewBody : faker.lorem.paragraph(),
+           helpfulCount : faker.datatype.number(2000),
+           abuseReported : faker.datatype.boolean()
+        }
+        records.push(newReview);
     }
+    productNum++;
+    console.log(productNum);
+  }
+    await seedNewReviews(records);
   }
 }
+
 
 require('make-runnable');
 
