@@ -8,9 +8,9 @@ const cors = require('cors')
 const bodyParser = require ('body-parser');
 const jsonParser = bodyParser.json();
 const morgan = require('morgan');
-const env = require('../.env');
 
-const reviewsip = `${env.REVIEWS_IP}`;
+
+const reviewsip = `13.59.62.28`;
 
 
 app.use(express.static(path.join(__dirname, "..", "public")))
@@ -32,7 +32,7 @@ app.get('/reviews/:productid', function(req, res) {
 app.get('/averagereview/:productid', function(req, res) {
   return db.getAverageReviews(req.params.productid)
     .then((score) => {
-      res.send(score);
+      res.send(score[0]);
     })
 })
 
